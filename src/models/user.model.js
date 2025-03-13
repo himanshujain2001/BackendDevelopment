@@ -7,8 +7,7 @@ const userSchema = new mongoose.Schema({
     watchHistory: [
         {
             type: Schema.Types.ObjectId,
-            ref: "Video",
-            required: true,
+            ref: "Video"
         }
     ],
     username: {
@@ -23,6 +22,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         lowercase: true,
+        match: /.+\@.+\..+/
     },
     fullName: {
         type: String,
@@ -38,14 +38,15 @@ const userSchema = new mongoose.Schema({
     },    
     password: {
         type: String,
-        required: [true, "Password is required"]
+        required: [true, "Password is required"],
+        minlength: 8
     },    
     refreshToken: {
         type: String
         
     }
 
-}, {timeStamps: true})
+}, {timestamps: true})
 
 // Password encryption: 
 // 1. jaise hi user n first time password daala ya existing pswd ko update kiya tabhi apan password ko save krayenge to if condition m vhi handle
